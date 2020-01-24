@@ -1,27 +1,50 @@
 from .conf import lya_data_path
 
+class Data:
+    
+    def __init__(self, filename):
+        
+        self.filename = filename
+        
+        self.k, self.Pk, self.Pk_err = self.load_lya_data()
+        
+    def load_lya_data(self):
+        """Load lyman-alpha data
+        Parameters
+        ----------
+        filename : str
+            Path to ly-a data
+        Returns
+        -------
+        data : Data object
+            K, matter power spectrum, and p(k) uncertainty arrays,
+            encapsulated in Data object
+        """
+        
+        k, Pk, error = np.loadtxt(self.filename, unpack=True)
+        return k, Pk, error
+    
+# class Data(object):
+#     def __init__(self, x, y, y_unc):
+#         self.x = x
+#         self.y = y
+#         self.y_unc = y_unc
 
-class Data(object):
-    def __init__(self, x, y, y_unc):
-        self.x = x
-        self.y = y
-        self.y_unc = y_unc
 
+# def load_lya_data(filename=lya_data_path):
+#     """Load lyman-alpha data
 
-def load_lya_data(filename=lya_data_path):
-    """Load lyman-alpha data
+#     Parameters
+#     ----------
+#     filename : str
+#         Path to ly-a data
 
-    Parameters
-    ----------
-    filename : str
-        Path to ly-a data
-
-    Returns
-    -------
-    data : Data object
-        K, matter power spectrum, and p(k) uncertainty arrays,
-        encapsulated in Data object
-    """
+#     Returns
+#     -------
+#     data : Data object
+#         K, matter power spectrum, and p(k) uncertainty arrays,
+#         encapsulated in Data object
+#     """
 
 
 def plot_pk(params=None, filename=lya_data_path):
